@@ -1,0 +1,6 @@
+**/dist/*
+**/.eslint.js
+**/vue.config.js
+**/babel.config.js
+
+postinstall.js

@@ -1,0 +1,10 @@
+node_modules
+.DS_Store
+dist
+*.local
+.idea
+.pnpm-debug.log
+makefile
+packages/server/dist
+packages/web/dist
+.vscode
