@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:6.2.4
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    volumes:
+      - ./.docker/redis/data/:/data
+
+  mongodb:
+    image: mysql
+    container_name: mysql
+    ports:
+      - 27017:27017
+    volumes:
+      - ./database:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
