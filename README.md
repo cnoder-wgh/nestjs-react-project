@@ -40,7 +40,8 @@
 |                | Jaeger                                   |   ✓   |
 
 
-
+## 前端示例
+![image](./example.png)
 
 ## 使用
 
