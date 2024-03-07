@@ -1,14 +1,16 @@
 import {
+  Body,
   Controller,
   DefaultValuePipe,
   Get,
   Param,
+  Post,
   Query,
+  ValidationPipe,
 } from '@nestjs/common';
 //import { User } from 'database/user.model';
-import { Observable } from 'rxjs';
-import { ParseObjectIdPipe } from '../shared/pipe/parse-object-id.pipe';
 import { UserService } from './user.service';
+import { RegisterDto } from './user.dto';
 
 @Controller({ path: '/users' })
 export class UserController {
@@ -16,9 +18,14 @@ export class UserController {
 
   @Get(':id')
   getUser(
-    @Param('id', ParseObjectIdPipe) id: string,
+    @Param('id', ValidationPipe) id: string,
     @Query('withPosts', new DefaultValuePipe(false)) withPosts?: boolean,
-  ): Observable<Partial<any>> {
+  ) {
     return this.userService.findById(id, withPosts);
+  }
+
+  @Post('/register')
+  async register(@Body() registerDto: RegisterDto) {
+    const {} = registerDto;
   }
 }
