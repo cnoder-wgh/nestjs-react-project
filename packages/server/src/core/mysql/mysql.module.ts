@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import * as path from 'path';
 import { DataSource } from 'typeorm';
 
+console.log(path.join(__dirname, '../../entities/*.entity{.ts,.js}'));
+
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -17,7 +19,7 @@ import { DataSource } from 'typeorm';
           password: configService.get('MYSQL_PASSWORD'),
           database: configService.get('MYSQL_DATABASE'),
           entities: [path.join(__dirname, '../../entities/*.entity{.ts,.js}')],
-          synchronize: false,
+          synchronize: true,
           logging:
             process.env.NODE_ENV === 'local' || process.env.NODE_ENV === 'dev',
         };

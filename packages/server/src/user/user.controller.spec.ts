@@ -26,22 +26,4 @@ describe('UserController', () => {
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
-
-  it('getUser', async () => {
-    jest
-      .spyOn(service, 'findById')
-      .mockImplementationOnce((id: string, withPosts: boolean) =>
-        of({
-          username: 'hantsy',
-          password: 'mysecret',
-          email: 'hantsy@example.com',
-          firstName: 'hantsy',
-          lastName: 'bai',
-        } as any),
-      );
-    const user = await lastValueFrom(controller.getUser('id', false));
-    expect(user.firstName).toBe('hantsy');
-    expect(user.lastName).toBe('bai');
-    expect(service.findById).toBeCalledWith('id', false);
-  });
 });

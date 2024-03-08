@@ -18,14 +18,14 @@ export class UserController {
 
   @Get(':id')
   getUser(
-    @Param('id', ValidationPipe) id: string,
-    @Query('withPosts', new DefaultValuePipe(false)) withPosts?: boolean,
+    @Param('id', ValidationPipe) id: number,
+    @Query('withPosts', new DefaultValuePipe(false)) withItems?: boolean,
   ) {
-    return this.userService.findById(id, withPosts);
+    return this.userService.findById(+id, withItems);
   }
 
   @Post('/register')
   async register(@Body() registerDto: RegisterDto) {
-    const {} = registerDto;
+    return this.userService.register(registerDto);
   }
 }

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import api from './api';
 import './App.css'
 // @ts-ignore
-import debounce from 'lodash/debounce';//防抖加节流
+import loadsh from 'loadsh';//防抖加节流
 
 function App() {
   const [list, setList] = useState<any[]>([
@@ -25,7 +25,7 @@ function App() {
     const myDiv: any = document.getElementById('myDiv'); // 监听触底
     function checkScroll() {
       if (myDiv.clientHeight + myDiv.scrollTop >= myDiv.scrollHeight - 5) {
-        debounce(() => {
+        loadsh.debounce(() => {
           console.log("已滚动到底部");
         }, 250, { 'maxWait': 1000 }, true)
       }
@@ -56,7 +56,7 @@ function App() {
       </div>
       <div className="content" >
         <h1 >TODO</h1>
-        <div className="input-block"><input onKeyUp={debounce(onKeyUp, 250, { 'maxWait': 1000 }, true)} placeholder="Create a new todo..."></input></div>
+        <div className="input-block"><input onKeyUp={loadsh.debounce(onKeyUp, 250, { 'maxWait': 1000 }, true)} placeholder="Create a new todo..."></input></div>
         <div className="list" id="myDiv">
           {list.map((item: any, index: number) => <div className="item" key={index}>
             <input type="checkbox" checked={item.status === 1 ? true : false} onChange={onCheckbox}/><div className={item.status === 1 ? 'text done' : 'text'}>{item.text}</div>

@@ -4,6 +4,8 @@ import { UserService } from '../user/user.service';
 import { AccessToken } from './interface/access-token.interface';
 import { JwtPayload } from './interface/jwt-payload.interface';
 import { UserPrincipal } from './interface/user-principal.interface';
+import { User } from 'src/entities/user.entity';
+import { compare } from 'bcrypt';
 
 @Injectable()
 export class AuthService {
@@ -12,9 +14,19 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  async validateUser(username, password): Promise<any> {
-    return {};
+  async validateUser(username: string, password: string): Promise<User | null> {
+    const user = await this.userService.findByUsername(username);
+    console.log(user);
+    if (!user) {
+      return null;
+    }
+
+    const isPasswordValid = await compare(password, user.password);
+    if (!isPasswordValid) {
+      return null;
+    }
+
+    return user;
   }
 
   // If `LocalStrateg#validateUser` return a `Observable`, the `request.user` is

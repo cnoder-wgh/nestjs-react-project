@@ -1,25 +1,26 @@
-version: '3'
-
+version: '3.8'
 services:
-  redis:
-    image: redis:6.2.4
-    ports:
-      - 6379:6379
-    healthcheck:
-      test: ['CMD', 'redis-cli', 'ping']
-      interval: 10s
-      timeout: 5s
-      retries: 3
-    volumes:
-      - ./.docker/redis/data/:/data
-
-  mongodb:
-    image: mysql
-    container_name: mysql
-    ports:
-      - 27017:27017
-    volumes:
-      - ./database:/data/db
+  mysql:
+    image: mysql/mysql-server:8.0.24
+    restart: always
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=admin
-      - MONGO_INITDB_ROOT_PASSWORD=admin
+      MYSQL_ROOT_PASSWORD: 123456
+    command:
+      --default-authentication-plugin=mysql_native_password
+      --character-set-server=utf8mb4
+      --collation-server=utf8mb4_general_ci
+      --explicit_defaults_for_timestamp=true
+      --lower_case_table_names=1
+    ports:
+      - 3306:3306
+    volumes:
+      - ./data:/var/lib/mysql
+
+  redis:
+    image: redis     #镜像名称/id
+    container_name: redis #创建好以后的容器名称
+    restart: always 	  #自动启动
+    ports:
+      - 6379:6379		  #端口
+    environment:
+      - REDIS_PASSWORD=123456
