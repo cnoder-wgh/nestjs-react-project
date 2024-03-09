@@ -16,9 +16,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     });
   }
 
-  //payload is the decoded jwt clmais.
   validate(payload: JwtPayload): UserPrincipal {
-    //console.log('jwt payload:' + JSON.stringify(payload));
     return {
       username: payload.upn,
       email: payload.email,
