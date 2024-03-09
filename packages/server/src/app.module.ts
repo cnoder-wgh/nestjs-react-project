@@ -4,6 +4,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { ItemModule } from './item/item.module';
+
 import { MysqlModule } from './core/mysql/mysql.module';
 import { RedisCacheModule } from './core/redis/redis-cache.module';
 import { LoggerModule } from './logger/logger.module';
@@ -19,6 +21,7 @@ import * as path from 'path';
     RedisCacheModule,
     AuthModule,
     UserModule,
+    ItemModule,
     LoggerModule.forRoot(),
   ],
   controllers: [AppController],

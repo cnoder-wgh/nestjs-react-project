@@ -9,11 +9,16 @@ export class RedisCacheService {
     private cacheManager: Cache,
   ) {}
 
-  cacheSet(key: string, value: string, ttl: number) {
-    this.cacheManager.set(key, value, ttl);
+  // 新版本ttl为毫秒
+  async cacheSet(key: string, value: string, ttl: number) {
+    return this.cacheManager.set(key, value, ttl);
   }
 
   async cacheGet(key: string): Promise<string> {
     return this.cacheManager.get(key);
+  }
+
+  async cacheDel(key: string): Promise<void> {
+    await this.cacheManager.del(key);
   }
 }

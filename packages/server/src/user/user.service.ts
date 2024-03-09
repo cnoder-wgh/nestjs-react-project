@@ -31,9 +31,12 @@ export class UserService {
     }
   }
 
-  async register(registerDto: RegisterDto): Promise<void> {
-    const { email, password } = registerDto;
-    const isExsitUser = await this.usersRepository.findOneBy({ email });
+  async register(registerDto: RegisterDto): Promise<{ id: number }> {
+    const { email, password, username } = registerDto;
+    const isExsitUser = await this.usersRepository.findOneBy({
+      email,
+      username,
+    });
     if (!isEmpty(isExsitUser)) {
       throw new ConflictException(`email:${email} is existed`);
     }
@@ -46,7 +49,7 @@ export class UserService {
       ...registerDto,
       password: hashedPassword,
     };
-    const result = await this.usersRepository.save(user);
-    console.log(result);
+    const newUser = await this.usersRepository.save(user);
+    return { id: newUser.id };
   }
 }
