@@ -29,6 +29,9 @@ export class UserService {
         relations: ['todoItems'],
       });
     }
+    return this.usersRepository.findOne({
+      where: { id },
+    });
   }
 
   async register(registerDto: RegisterDto): Promise<{ id: number }> {
